@@ -26,3 +26,13 @@ lerna-debug.log*
 
 # misc
 .DS_Store
+
+# db
+dev.db
+test.db
+
+# vercel
+.vercel
+
+# dist
+dist

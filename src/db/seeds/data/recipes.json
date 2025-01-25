@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Spaghetti Carbonara",
+    "description": "Classic Italian pasta dish with eggs, cheese, pancetta, and pepper."
+  },
+  {
+    "title": "Chicken Tikka Masala",
+    "description": "Marinated chicken cooked in a creamy tomato-based curry sauce."
+  },
+  {
+    "title": "Vegetable Stir-Fry",
+    "description": "Quick and easy stir-fried veggies with soy sauce and sesame oil."
+  },
+  {
+    "title": "Beef Tacos",
+    "description": "Crispy taco shells filled with seasoned ground beef and toppings."
+  },
+  {
+    "title": "Margherita Pizza",
+    "description": "Neapolitan-style pizza with fresh mozzarella, basil, and tomato sauce."
+  },
+  {
+    "title": "Greek Salad",
+    "description": "Fresh salad with cucumbers, tomatoes, olives, feta cheese, and olive oil."
+  },
+  {
+    "title": "Butter Chicken",
+    "description": "Creamy and flavorful Indian curry with tender chicken pieces."
+  },
+  {
+    "title": "Avocado Toast",
+    "description": "Toasted bread topped with mashed avocado, lemon, and chili flakes."
+  },
+  {
+    "title": "Chocolate Chip Cookies",
+    "description": "Soft and chewy cookies loaded with chocolate chips."
+  },
+  {
+    "title": "Caesar Salad",
+    "description": "Crisp romaine lettuce tossed with Caesar dressing and croutons."
+  },
+  {
+    "title": "Vegetable Soup",
+    "description": "Hearty soup with a mix of fresh vegetables and herbs."
+  },
+  {
+    "title": "Shrimp Scampi",
+    "description": "Garlic butter shrimp served over linguine pasta."
+  },
+  {
+    "title": "Pad Thai",
+    "description": "Popular Thai noodle dish with tamarind sauce, peanuts, and shrimp."
+  },
+  {
+    "title": "Lemon Drizzle Cake",
+    "description": "Moist sponge cake with a tangy lemon glaze."
+  },
+  {
+    "title": "Beef Stroganoff",
+    "description": "Creamy Russian dish with sautéed beef and mushrooms."
+  }
+]
