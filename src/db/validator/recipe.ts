@@ -3,7 +3,9 @@ import type { z } from "zod";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 import { recipes } from "@/db/schema";
-import { selectRecipeLikesSchema, selectUserWithRecipesSchema } from "@/db/validator";
+
+import { selectRecipeLikesSchema } from "./recipe-likes";
+import { selectUserWithRecipesSchema } from "./user";
 
 const selectRecipesSchema = createSelectSchema(recipes);
 
