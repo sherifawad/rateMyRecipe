@@ -33,4 +33,10 @@ const selectRecipesWithUsersSchema = selectRecipesSchema.extend({
 
 export { insertRecipesSchema, patchRecipesSchema, selectRecipesSchema, selectRecipesWithUsersSchema };
 
-export type Recipe = z.infer<typeof selectRecipesWithUsersSchema>;
+ type Recipe = z.infer<typeof selectRecipesWithUsersSchema>;
+
+type InsertRecipe = z.infer<typeof insertRecipesSchema>;
+type PatchRecipe = z.infer<typeof patchRecipesSchema>;
+type RecipesWithUsers = z.infer<typeof selectRecipesWithUsersSchema>;
+
+export type { InsertRecipe, PatchRecipe, Recipe, RecipesWithUsers };

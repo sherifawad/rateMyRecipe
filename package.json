@@ -7,7 +7,8 @@
     "lint": "eslint .",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:seed": "tsx src/db/seed.ts"
+    "db:seed": "tsx src/db/seed.ts",
+    "test": "cross-env NODE_ENV=test vitest"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
@@ -28,11 +29,15 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.16.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.17",
     "cross-env": "^7.0.3",
     "drizzle-kit": "^0.30.2",
     "eslint": "^9.18.0",
     "eslint-plugin-format": "^1.0.1",
-    "tsx": "^4.7.1"
+    "fs-extra": "^11.3.0",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.7.1",
+    "vitest": "^3.0.4"
   }
 }

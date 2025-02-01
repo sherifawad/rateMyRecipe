@@ -6,6 +6,7 @@ import type { AppRouteHandler } from "@/lib/types";
 
 import db from "@/db";
 import { recipes } from "@/db/schema";
+import { ZOD_ERROR_CODES, ZOD_ERROR_MESSAGES } from "@/lib/constants";
 
 import type { CreateRecipeRoute, GetOneRecipeRoute, ListRoute, PatchRecipeRoute, RemoveRecipeRoute } from "./recipes.routes";
 
@@ -35,9 +36,27 @@ const createRecipe: AppRouteHandler<CreateRecipeRoute> = async (c) => {
 };
 
 const patchRecipe: AppRouteHandler<PatchRecipeRoute> = async (c) => {
-  const recipe = c.req.valid("json");
+  const updates = c.req.valid("json");
   const { id } = c.req.valid("param");
-  const [updatedRecipe] = await db.update(recipes).set(recipe).where(eq(recipes.id, id)).returning();
+  if (Object.keys(updates).length === 0) {
+    return c.json(
+      {
+        success: false,
+        error: {
+          issues: [
+            {
+              code: ZOD_ERROR_CODES.INVALID_UPDATES,
+              path: [],
+              message: ZOD_ERROR_MESSAGES.NO_UPDATES,
+            },
+          ],
+          name: "ZodError",
+        },
+      },
+      HttpStatusCodes.UNPROCESSABLE_ENTITY,
+    );
+  }
+  const [updatedRecipe] = await db.update(recipes).set(updates).where(eq(recipes.id, id)).returning();
   if (!updatedRecipe) {
     return c.json({
       message: HttpStatusPhrases.NOT_FOUND,
