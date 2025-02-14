@@ -1,10 +1,11 @@
-import { createRoute, z } from "@hono/zod-openapi";
+import { createRoute } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
 import { createErrorSchema, IdParamsSchema } from "stoker/openapi/schemas";
 
 import { insertRecipesSchema, patchRecipesSchema, selectRecipesSchema } from "@/db/validator";
-import { notFoundSchema } from "@/lib/constants";
+import { forbiddenSchema, notFoundSchema } from "@/lib/constants";
+import { requireRole } from "@/middlewares/authorization";
 
 const tags = ["Recipes"];
 
@@ -63,6 +64,7 @@ const patchRecipe = createRoute({
 const removeRecipe = createRoute({
   path: "/recipes/{id}",
   method: "delete",
+  middleware: [requireRole("admin")],
   request: {
     params: IdParamsSchema,
   },
@@ -71,6 +73,10 @@ const removeRecipe = createRoute({
     [HttpStatusCodes.NO_CONTENT]: {
       description: "Recipe deleted",
     },
+    [HttpStatusCodes.FORBIDDEN]: jsonContent(
+      forbiddenSchema,
+      "user does not have permission to delete recipe",
+    ),
     [HttpStatusCodes.NOT_FOUND]: jsonContent(
       notFoundSchema,
       "Recipe not found",

@@ -1,4 +1,5 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
+import { csrf } from "hono/csrf";
 import { requestId } from "hono/request-id";
 import { notFound, onError, serveEmojiFavicon } from "stoker/middlewares";
 import { defaultHook } from "stoker/openapi";
@@ -21,6 +22,7 @@ export default function createApp() {
   app.use(requestId());
   app.notFound(notFound);
   app.onError(onError);
+  app.use(csrf());
   return app;
 }
 
