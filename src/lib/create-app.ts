@@ -8,7 +8,7 @@ import { pinoLogger } from "@/middlewares/pino-logger";
 
 import type { AppBindings, AppOpenAPI } from "./types";
 
-export function createRouter() {
+export function createRouter(): OpenAPIHono<AppBindings> {
   return new OpenAPIHono<AppBindings>({
     strict: false,
     defaultHook,

@@ -1,7 +1,11 @@
+import type { MiddlewareHandler } from "hono";
+
 import { createRoute } from "@hono/zod-openapi";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import { jsonContent, jsonContentRequired } from "stoker/openapi/helpers";
 import { createErrorSchema, IdParamsSchema } from "stoker/openapi/schemas";
+
+import type { AppBindings } from "@/lib/types";
 
 import { insertRecipesSchema, patchRecipesSchema, selectRecipesSchema } from "@/db/validator";
 import { forbiddenSchema, notFoundSchema } from "@/lib/constants";
@@ -64,10 +68,10 @@ const patchRecipe = createRoute({
 const removeRecipe = createRoute({
   path: "/recipes/{id}",
   method: "delete",
-  middleware: [requireRole("admin")],
   request: {
     params: IdParamsSchema,
   },
+  middleware: [requireRole("admin")] as const,
   tags,
   responses: {
     [HttpStatusCodes.NO_CONTENT]: {
@@ -92,7 +96,7 @@ type ListRoute = typeof list;
 type CreateRecipeRoute = typeof createRecipe;
 type GetOneRecipeRoute = typeof getOneRecipe;
 type PatchRecipeRoute = typeof patchRecipe;
-type RemoveRecipeRoute = typeof removeRecipe;
+type RemoveRecipeRoute = typeof removeRecipe ;
 
 export { createRecipe, getOneRecipe, list, patchRecipe, removeRecipe };
 export type { CreateRecipeRoute, GetOneRecipeRoute, ListRoute, PatchRecipeRoute, RemoveRecipeRoute };

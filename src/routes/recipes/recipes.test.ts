@@ -1,6 +1,6 @@
-import { sql } from "drizzle-orm";
 import { testClient } from "hono/testing";
 import { execSync } from "node:child_process";
+import * as HttpStatusCodes from "stoker/http-status-codes";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
 import { afterAll, beforeAll, describe, expect, expectTypeOf, it } from "vitest";
 import { ZodIssueCode } from "zod";
@@ -9,7 +9,7 @@ import type { InsertRecipe } from "@/db/validator";
 
 import db from "@/db";
 import { recipes, users } from "@/db/schema";
-import seedUsers from "@/db/seeds/users";
+import { hashPassword } from "@/db/seeds/users";
 import env from "@/env";
 import { ZOD_ERROR_CODES, ZOD_ERROR_MESSAGES } from "@/lib/constants";
 import createApp from "@/lib/create-app";
@@ -28,7 +28,7 @@ describe("recipes routes", () => {
     await db.insert(users).values({
       id: 1,
       username: "test",
-      password: "test",
+      password: await hashPassword("test_test"),
     });
   });
   afterAll(async () => {
@@ -204,12 +204,16 @@ describe("recipes routes", () => {
     }
   });
 
-  it("delete /recipes/{id} removes a task", async () => {
+  it("delete /recipes/{id} can note removes a task for a non user", async () => {
     const response = await client.recipes[":id"].$delete({
       param: {
         id: recipeId,
       },
     });
-    expect(response.status).toBe(204);
+    expect(response.status).toBe(HttpStatusCodes.FORBIDDEN);
+    if (response.status === HttpStatusCodes.FORBIDDEN) {
+      const json = await response.json();
+      expect(json.message).toBe(HttpStatusPhrases.FORBIDDEN);
+    }
   });
 });

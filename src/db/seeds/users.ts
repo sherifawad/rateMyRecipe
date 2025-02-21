@@ -6,7 +6,7 @@ import * as schema from "@/db/schema";
 
 import users from "./data/users.json";
 
-async function hashPassword(password: string) {
+export async function hashPassword(password: string) {
   return await argon2.hash(password);
 }
 

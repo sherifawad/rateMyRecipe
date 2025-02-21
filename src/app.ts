@@ -21,9 +21,7 @@ publicRoutes.forEach((route) => {
   app.route("/", route);
 });
 protectedRoutes.forEach((route) => {
-  app.use((c, next) => {
-    return authMiddleware(c, next);
-  });
+  app.use("/", authMiddleware);
   app.route("/", route);
 });
 

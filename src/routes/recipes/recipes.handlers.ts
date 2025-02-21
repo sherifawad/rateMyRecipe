@@ -64,7 +64,13 @@ const patchRecipe: AppRouteHandler<PatchRecipeRoute> = async (c) => {
   }
   return c.json(updatedRecipe, HttpStatusCodes.OK);
 };
-const removeRecipe: AppRouteHandler<RemoveRecipeRoute> = async (c) => {
+const removeRecipeHandler: AppRouteHandler<RemoveRecipeRoute> = async (c) => {
+  const { role } = c.var.user || {};
+  if (!role || role !== "admin") {
+    return c.json({
+      message: HttpStatusPhrases.FORBIDDEN,
+    }, HttpStatusCodes.FORBIDDEN);
+  }
   const { id } = c.req.valid("param");
   const result = await db.delete(recipes).where(eq(recipes.id, id));
   if (result.rowsAffected === 0) {
@@ -75,4 +81,4 @@ const removeRecipe: AppRouteHandler<RemoveRecipeRoute> = async (c) => {
   return c.body(null, HttpStatusCodes.NO_CONTENT);
 };
 
-export { createRecipe, getOneRecipe, list, patchRecipe, removeRecipe };
+export { createRecipe, getOneRecipe, list, patchRecipe, removeRecipeHandler };

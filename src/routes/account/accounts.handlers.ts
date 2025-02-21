@@ -1,11 +1,10 @@
-import type { JwtPayload } from "@/lib/authentication/validator";
-
 import * as argon2 from "argon2";
 import { deleteCookie, setCookie } from "hono/cookie";
 import { sign } from "hono/jwt";
 import * as HttpStatusCodes from "stoker/http-status-codes";
 import * as HttpStatusPhrases from "stoker/http-status-phrases";
 
+import type { JwtPayload } from "@/lib/authentication/validator";
 import type { AppRouteHandler } from "@/lib/types";
 
 import db from "@/db";
